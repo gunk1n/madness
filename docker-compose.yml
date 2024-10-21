@@ -1,9 +1,23 @@
+---
+
 services:
-  web:
+  madness-server:
     build: .
-    image: dannyben/madness
+    image: 'dannyben/madness'
+    container_name: 'madness-server'
+    restart: 'unless-stopped'
     volumes: 
-      - ./:/docs
+      - docs:/docs
     ports: 
       - 3000:3000
     command: server
+    networks:
+      - proxy_network
+
+networks:
+  proxy_network:
+    external: true
+    name: proxy_network
+
+volumes:
+  docs:
